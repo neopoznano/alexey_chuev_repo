@@ -1,0 +1,38 @@
+Задание 2.2
+
+Необходимо: использовав агрегатные функции, выбрать все шк и цены (reports.barcode, reports.price)
+с одинаковыми названиями точек продаж (pos.title).
+
+Комментарий: О какой агрегирующей функции идет речь? В идеале, к описанию задачи нужно бы добавить ожидаемый вывод.
+-- create
+CREATE TABLE pos(
+  id int PRIMARY KEY,
+  title character varying
+);
+
+CREATE TABLE reports(
+id int PRIMARY KEY,
+barcode character varying,
+price float,
+pos_id int
+);
+
+-- insert
+INSERT INTO pos VALUES (0001, 'qwerty');
+INSERT INTO pos VALUES (0002, 'asdfgh');
+INSERT INTO pos VALUES (0003, 'zxcvbn');
+INSERT INTO pos VALUES (0004, 'qazwsxedc');
+
+INSERT INTO reports VALUES (0001, '111', 100.0, 0001);
+INSERT INTO reports VALUES (0002, '222', 110.0, 0002);
+INSERT INTO reports VALUES (0003, '333', 120.0, 0003);
+INSERT INTO reports VALUES (0004, '444', 130.0, 0004);
+INSERT INTO reports VALUES (0005, '555', 140.0, 0001);
+INSERT INTO reports VALUES (0006, '666', 150.0, 0002);
+INSERT INTO reports VALUES (0007, '777', 160.0, 0003);
+INSERT INTO reports VALUES (0008, '888', 170.0, 0004);
+
+-- fetch
+SELECT reports.barcode, reports.price, pos.title  FROM reports, pos
+WHERE reports.pos_id = pos.id ORDER BY pos.title
+

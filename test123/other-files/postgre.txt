@@ -1,0 +1,26 @@
+Задание 2.1
+
+Необходимо: выбрать всех пользователей (user_id), которые впервые создали отчет в 2021-м году, и подсчитать
+сумму вознаграждений (reward) за 2022-й год в одном запросе.
+
+Комментарий: Не совсем явно предназначение столбца created_at - отвечает он за первичное создание
+пользователя в таблице или же за дату создания каждой записи. Если второе, то не совсем ясно условие задачи и хотелось
+бы получить комментарий. Если первое, то решение представлено ниже.
+
+
+-- create
+CREATE TABLE reports (
+  id int PRIMARY KEY,
+  user_id int,
+  reward int,
+  created_at timestamp without time zone
+);
+
+-- insert
+INSERT INTO reports VALUES (0001, 123, 20000, '2019-09-24 20:10:58.977914');
+INSERT INTO reports VALUES (0002, 1123, 30000, '2020-09-24 20:10:58.977914');
+INSERT INTO reports VALUES (0003, 12233, 40000, '2021-09-24 20:10:58.977914');
+INSERT INTO reports VALUES (0004, 1123, 50000, '2020-09-24 20:10:58.977914');
+
+-- fetch
+SELECT user_id, sum(reward) FROM reports WHERE created_at BETWEEN '2020-01-01' AND '2021-01-01' group by user_id;
